@@ -1,63 +1,62 @@
-#include "PCC104_DeacreaseAndConquer.Maplotpp.h"
+#include <iostream>
+#include<vector>
+#include <chrono>
+#include <set>
+#include <iterator>
+#include <algorithm>
 
-std::vector<std::vector<int>> lexuc_permute(int n);
-{
-    std::vector<std::vector<int>> permutations;
-    std::vector<int> permutation;
+std::vector<std::vector<int>> lexic_permute(int n) {
 
-    for (int i = 0; i < n; i++)
-    {
-        permutation.push_back(i);
-    }
+	std::vector<std::vector<int>> permutations;
+	std::vector<int> permutation;
 
-    permutations.push_back(permutation);
+	for (int i = 0; i < n; i++) {
+		permutation.push_back(i);
+	}
 
-    bool decreasing_order = false;
+	permutations.push_back(permutation);
 
-    do{
+	bool decreasing_order = false;
 
-        int i = -1;
-        for (int k = 0; k < n - 1; k++)
-        {
-            if (permutation[k] < permutation[k + 1])
-            {
-                i = k;
-            }
+	do {
+		int i = -1;
 
-        }
-        decreasing_order = (i == -1);
+		for (int k = 0; k < n - 1; k++){
+			if (permutation[k] < permutation[k + 1]) {
+				i = k;
+			}
+		}
 
-        if (!decreasing_order)
-        {
-        int j = i+1;
+		decreasing_order = (i == -1);
 
-        for (int k = i; k < n; k++)
-        {
-            if (permutation[i] < permutation[k])
-            {
-                j = k;
-            }
-        }
+		if (!decreasing_order) {
+			int j = i;
 
-        std::swap(permutation[i], permutation[j]);
-        std::reverse(permutaion.begin() + (i + 1), permutaion.end());
-        permutations.push_back(permutation);
+			for (int k = i; k < n; k++){
+				if (permutation[i] < permutation[k]) {
+					j = k;
+				}
+			}
 
-        }
+			std::swap(permutation[i], permutation[j]);
 
-    } while (! decreasing_order);
+			std::reverse(permutation.begin() + (i + 1), permutation.end());
 
-    return permutations;
+			permutations.push_back(permutation);
+		}
+
+	} while (! decreasing_order);
+
+	return permutations;
+
 }
 
 
 
 void print_permutations(std::vector<std::vector<int>>& permutations)
 {
-    for (std::vector<int> p : permutations)
-    {
-        for (int el : p)
-        {
+    for (std::vector<int> p : permutations){
+        for (int el : p){
             std::cout << el << "";
         }
         std::cout << std::endl;
@@ -66,9 +65,8 @@ void print_permutations(std::vector<std::vector<int>>& permutations)
 
 int main()
 {
-
+    system("cls");
     std::vector<std::vector<int>> permutations = lexic_permute(5);
     print_permutations(permutations);
-
 
 }
